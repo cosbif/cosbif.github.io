@@ -212,113 +212,44 @@
       color: #FFFFFF;
     }
 
-    /* Пример «Frame 1» c WhatsApp / Telegram */
-    .frame-1 {
-      position: absolute;
-      width: 112px;
-      height: 48px;
-      left: calc(50% - 112px/2 + 0.5px);
-      top: 579px;
+    .contacts {
       display: flex;
-      flex-direction: row;
+      flex-wrap: wrap; /* чтобы иконки переносились, если их >4 */
+      justify-content: center;
+      gap: 20px;       /* расстояние между иконками */
+      margin-top: 30px;
+    }
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;  
       align-items: center;
-      gap: 16px;
+      justify-content: center;
+      color: #fff; /* цвет иконки (svg) */
+      text-decoration: none;
     }
-    /* Пример иконки WhatsApp */
-    .whatsapp-box {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(0deg, #20B038 0%, #60D66A 100%);
-      border-radius: 8px; /* не было задано, но чтобы смотрелось аккуратнее */
-      position: relative;
-    }
-    /* Ссылка, которая открывает чат WhatsApp */
-    .whatsapp-link {
-      position: absolute; /* чтобы занять весь box */
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      text-indent: -9999px; /* скрываем текст, если он есть */
+    .contact-icon svg {
+      width: 24px;
+      height: 24px;
     }
 
-    /* Пример иконки Telegram */
-    .telegram-box {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(180deg, #2AABEE 0%, #229ED9 99.26%);
-      border-radius: 8px;
-      position: relative;
+    /* Теперь покрасим фон каждой кнопки */
+    .phone-icon {
+      background: #4CAF50; /* зелёный */
     }
-    .telegram-link {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      text-indent: -9999px;
+    .mail-icon {
+      background: #2196F3; /* синий */
     }
-
-    /* Аналогично для Instagram */
-    .instagram-box {
-      position: absolute;
-      width: 48px;
-      height: 48px;
-      left: calc(50% - 48px/2 + 0.5px);
-      top: 639px;
-      background: linear-gradient(45deg, #FFD522 0%, #F1000B 49.74%, #B900B3 100%);
-      border-radius: 8px;
+    .whatsapp-icon {
+      background: #20B038; /* WhatsApp зелёный */
     }
-    .instagram-link {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      text-indent: -9999px;
+    .telegram-icon {
+      background: #2AABEE; /* Telegram голубой */
     }
-
-    /* Пример «Frame 2» c Телефон / Почта (или что-то другое) */
-    .frame-2 {
-      position: absolute;
-      width: 112px;
-      height: 48px;
-      left: calc(50% - 112px/2 + 0.5px);
-      top: 519px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 16px;
-    }
-    .phone-box {
-      width: 48px;
-      height: 48px;
-      background: #7DC847; /* пример */
-      border-radius: 8px;
-      position: relative;
-    }
-    .phone-link {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      text-indent: -9999px;
-    }
-    .mail-box {
-      width: 48px;
-      height: 48px;
-      background: #328CFF;
-      border-radius: 8px;
-      position: relative;
-    }
-    .mail-link {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      text-indent: -9999px;
+    .insta-icon {
+      /* Градиент Инстаграма */
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
     }
 
   </style>
@@ -352,52 +283,26 @@
     <!-- Осталось XX дней гарантии -->
     <div id="daysRemaining">Осталось 100 дней гарантии</div>
 
-    <!-- «Frame 2» (пример) - Телефон + Почта -->
-    <div class="frame-2">
-      <div class="phone-box">
-        <!-- Ссылка-телефон -->
-        <a href="tel:+79634063507"
-           class="phone-link"
-           target="_blank">
-          Телефон
-        </a>
-      </div>
-      <div class="mail-box">
-        <!-- Ссылка-почта -->
-        <a href="mailto:alikhan20020220@gmail.com"
-           class="mail-link"
-           target="_blank">
-          Почта
-        </a>
-      </div>
-    </div>
-
-    <!-- «Frame 1» (пример) - WhatsApp + Telegram -->
-    <div class="frame-1">
-      <div class="whatsapp-box">
-        <!-- Ссылка-WhatsApp -->
-        <a href="https://wa.me/79634063507"
-           class="whatsapp-link"
-           target="_blank">
-          WhatsApp
-        </a>
-      </div>
-      <div class="telegram-box">
-        <!-- Ссылка-Telegram -->
-        <a href="https://t.me/cosbif"
-           class="telegram-link"
-           target="_blank">
-          Telegram
-        </a>
-      </div>
-    </div>
-
-    <!-- Кнопка Instagram -->
-    <div class="instagram-box">
-      <a href="https://instagram.com/cosbif"
-         class="instagram-link"
-         target="_blank">
-        Instagram
+    <div class="contacts">
+      <!-- Телефон -->
+      <a href="tel:+70000000000" class="contact-icon phone-icon" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="..."/></svg>
+      </a>
+      <!-- Почта -->
+      <a href="mailto:info@company.ru" class="contact-icon mail-icon" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="..."/></svg>
+      </a>
+      <!-- WhatsApp -->
+      <a href="https://wa.me/70000000000" class="contact-icon whatsapp-icon" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="..."/></svg>
+      </a>
+      <!-- Telegram -->
+      <a href="https://t.me/YourManager" class="contact-icon telegram-icon" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="..."/></svg>
+      </a>
+      <!-- Instagram -->
+      <a href="https://instagram.com/YourCompany" class="contact-icon insta-icon" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="..."/></svg>
       </a>
     </div>
 

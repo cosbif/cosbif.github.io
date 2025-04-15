@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Осветители и оптика NOM</title>
+  <style>
+    /* Устанавливаем нулевые отступы и базовые стили */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f8f8f8;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;  /* центрируем контейнер по горизонтали */
+      padding: 20px 0;
+    }
+
+    /* 
+      Главный контейнер, которому даём фиксированную ширину 375px,
+      чтобы повторить макет под iPhone 13 mini.
+      Высоту (812px) можно оставить auto,
+      чтобы контент подстраивался, если что-то растянется.
+    */
+    .screen {
+      position: relative;
+      width: 375px;
+      min-height: 812px; /* можно задать или оставить auto */
+      background: #FFFFFF;
+      overflow: hidden; /* если что-то вылезет за пределы */
+    }
+
+    /********************************************************************
+      Ниже — CSS, скопированный из Figma (с комментариями).
+      Я сгруппировал, где это возможно, но многое остаётся “absolute”.
+     ********************************************************************/
+
+    /* iPhone 13 mini - 1 */
+    /* position: relative;  width: 375px;  height: 812px; */
+    /* уже задано выше .screen */
+
+    /* Mask group / Rectangle 38 */
+    .logo-bg {
+      position: absolute;
+      width: 108px;
+      height: 108px;
+      left: calc(50% - 108px/2 + 0.5px);
+      top: 48px;
+      background: #D9D9D9;
+      border-radius: 50%; /* Не было в коде, добавляю для логотипа */
+    }
+
+    /* Group 196 ... и Subtract-элементы - ваша фигура “логотипа” */
+    .subtract1 {
+      position: absolute;
+      width: 123.43px;
+      height: 123.43px;
+      left: 118.57px;
+      top: 48.01px;
+      background: #525252;
+    }
+    .subtract2 {
+      position: absolute;
+      width: 92.57px;
+      height: 92.57px;
+      left: 134px;
+      top: 156.01px;
+      background: #BBBBBB;
+      transform: rotate(-90deg);
+    }
+    .subtract3 {
+      position: absolute;
+      width: 92.57px;
+      height: 92.57px;
+      left: 226.57px;
+      top: 63.42px;
+      background: #BBBBBB;
+      transform: rotate(90deg);
+    }
+    .subtract4 {
+      position: absolute;
+      width: 66.86px;
+      height: 66.85px;
+      left: 146.86px;
+      top: 76.29px;
+      background: #525252;
+    }
+    .subtract5 {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      left: 198.28px;
+      top: 91.72px;
+      background: #BBBBBB;
+      transform: rotate(90deg);
+    }
+    .subtract6 {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      left: 162.28px;
+      top: 127.72px;
+      background: #BBBBBB;
+      transform: rotate(-90deg);
+    }
+    .ellipse52 {
+      position: absolute;
+      width: 92.57px;
+      height: 92.57px;
+      left: 162.28px;
+      top: 19.72px;
+      border-radius: 50%;
+      /* background не указан в коде Figma, если надо - добавьте */
+    }
+
+    /* Заголовок: Осветители и оптика NOM */
+    .main-title {
+      position: absolute;
+      width: 224px;
+      height: 70px;
+      left: calc(50% - 224px/2 + 0.5px);
+      top: 180px;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 110%;
+      text-align: center;
+      color: #525252;
+    }
+
+    /* "Модель" */
+    .label-model {
+      position: absolute;
+      width: 61px;
+      height: 18px;
+      left: calc(50% - 61px/2);
+      top: 282px;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 110%;
+      letter-spacing: -0.01em;
+      color: #A0A0A0; /* grey */
+    }
+    /* "NOM 1 Pro" */
+    #modelValue {
+      position: absolute;
+      width: 99px;
+      height: 22px;
+      left: calc(50% - 99px/2);
+      top: 308px;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 110%;
+      letter-spacing: -0.01em;
+      color: #525252; /* main */
+      text-align: center;
+    }
+
+    /* Дата покупки */
+    .label-date {
+      position: absolute;
+      width: 105px;
+      height: 18px;
+      left: calc(50% - 105px/2);
+      top: 354px;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 110%;
+      color: #A0A0A0; /* grey */
+      text-align: center;
+    }
+    /* "14 марта, 2022" */
+    #productionDateValue {
+      position: absolute;
+      width: 147px;
+      height: 22px;
+      left: calc(50% - 147px/2);
+      top: 380px;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 110%;
+      letter-spacing: -0.01em;
+      color: #525252; /* main */
+      text-align: center;
+    }
+
+    /* Даты слева/справа над прогресс-баром */
+    #startDateShort {
+      position: absolute;
+      width: 56px;
+      height: 15px;
+      left: 17px; /* или right: 303px, но мы упростим */
+      top: 426px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 110%;
+      letter-spacing: -0.01em;
+      color: #525252;
+    }
+    #endDateShort {
+      position: absolute;
+      width: 56px;
+      height: 15px;
+      right: 16px; /* */
+      top: 426px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 110%;
+      letter-spacing: -0.01em;
+      color: #525252;
+      text-align: right;
+    }
+
+    /* Прогресс-бар (Group 199 / Background) */
+    .progress-background {
+      position: absolute;
+      width: 342px;
+      height: 12px;
+      left: calc(50% - 342px/2 + 0.5px);
+      top: 449px;
+      background: #E1E4EA;
+      border-radius: 5px;
+    }
+    .progress-fill {
+      /* Заливка, чтобы менять её ширину через JS */
+      position: absolute;
+      height: 12px;
+      left: calc(50% - 342px/2 + 0.5px); /* те же координаты, что у фона */
+      top: 449px;
+      background: #525252;
+      border-radius: 5px;
+      width: 0; /* по умолчанию 0, потом заполним скриптом */
+      transition: width 0.3s;
+    }
+
+    /* Осталось 100 дней гарантии */
+    #daysRemaining {
+      position: absolute;
+      width: 194px;
+      height: 15px;
+      left: calc(50% - 194px/2 + 0.5px);
+      top: 469px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 110%;
+      letter-spacing: -0.01em;
+      color: #A0A0A0;
+      text-align: center;
+    }
+
+    /* Кнопка «Посмотреть последние продукты» (Link) */
+    .latest-button {
+      position: absolute;
+      width: 343px;
+      height: 50px;
+      left: calc(50% - 343px/2);
+      bottom: 48px;
+      background: #525252;
+      border-radius: 30px;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none; /* чтобы не было подчеркивания */
+    }
+    .latest-button-text {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 110%;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+    }
+
+    /* Пример «Frame 1» c WhatsApp / Telegram */
+    .frame-1 {
+      position: absolute;
+      width: 112px;
+      height: 48px;
+      left: calc(50% - 112px/2 + 0.5px);
+      top: 579px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+    /* Пример иконки WhatsApp */
+    .whatsapp-box {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(0deg, #20B038 0%, #60D66A 100%);
+      border-radius: 8px; /* не было задано, но чтобы смотрелось аккуратнее */
+      position: relative;
+    }
+    /* Ссылка, которая открывает чат WhatsApp */
+    .whatsapp-link {
+      position: absolute; /* чтобы занять весь box */
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      text-indent: -9999px; /* скрываем текст, если он есть */
+    }
+
+    /* Пример иконки Telegram */
+    .telegram-box {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(180deg, #2AABEE 0%, #229ED9 99.26%);
+      border-radius: 8px;
+      position: relative;
+    }
+    .telegram-link {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      text-indent: -9999px;
+    }
+
+    /* Аналогично для Instagram */
+    .instagram-box {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      left: calc(50% - 48px/2 + 0.5px);
+      top: 639px;
+      background: linear-gradient(45deg, #FFD522 0%, #F1000B 49.74%, #B900B3 100%);
+      border-radius: 8px;
+    }
+    .instagram-link {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      text-indent: -9999px;
+    }
+
+    /* Пример «Frame 2» c Телефон / Почта (или что-то другое) */
+    .frame-2 {
+      position: absolute;
+      width: 112px;
+      height: 48px;
+      left: calc(50% - 112px/2 + 0.5px);
+      top: 519px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+    .phone-box {
+      width: 48px;
+      height: 48px;
+      background: #7DC847; /* пример */
+      border-radius: 8px;
+      position: relative;
+    }
+    .phone-link {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      text-indent: -9999px;
+    }
+    .mail-box {
+      width: 48px;
+      height: 48px;
+      background: #328CFF;
+      border-radius: 8px;
+      position: relative;
+    }
+    .mail-link {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      text-indent: -9999px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <!-- Пример: «логотип» из нескольких фигур -->
+    <div class="logo-bg"></div>
+    <div class="subtract1"></div>
+    <div class="subtract2"></div>
+    <div class="subtract3"></div>
+    <div class="subtract4"></div>
+    <div class="subtract5"></div>
+    <div class="subtract6"></div>
+    <div class="ellipse52"></div>
+
+    <!-- Заголовок -->
+    <div class="main-title">Осветители и оптика NOM</div>
+
+    <!-- Модель -->
+    <div class="label-model">Модель</div>
+    <div id="modelValue">NOM 1 Pro</div>
+
+    <!-- Дата покупки -->
+    <div class="label-date">Дата покупки</div>
+    <div id="productionDateValue">14 марта, 2022</div>
+
+    <!-- Даты над прогресс-баром -->
+    <div id="startDateShort">14.03.25</div>
+    <div id="endDateShort">14.03.27</div>
+
+    <!-- Прогресс-бар -->
+    <div class="progress-background"></div>
+    <div class="progress-fill" id="progressFill"></div>
+
+    <!-- Осталось XX дней гарантии -->
+    <div id="daysRemaining">Осталось 100 дней гарантии</div>
+
+    <!-- «Frame 2» (пример) - Телефон + Почта -->
+    <div class="frame-2">
+      <div class="phone-box">
+        <!-- Ссылка-телефон -->
+        <a href="tel:+70000000000"
+           class="phone-link"
+           target="_blank">
+          Телефон
+        </a>
+      </div>
+      <div class="mail-box">
+        <!-- Ссылка-почта -->
+        <a href="mailto:info@company.ru"
+           class="mail-link"
+           target="_blank">
+          Почта
+        </a>
+      </div>
+    </div>
+
+    <!-- «Frame 1» (пример) - WhatsApp + Telegram -->
+    <div class="frame-1">
+      <div class="whatsapp-box">
+        <!-- Ссылка-WhatsApp -->
+        <a href="https://wa.me/70000000000"
+           class="whatsapp-link"
+           target="_blank">
+          WhatsApp
+        </a>
+      </div>
+      <div class="telegram-box">
+        <!-- Ссылка-Telegram -->
+        <a href="https://t.me/YourManager"
+           class="telegram-link"
+           target="_blank">
+          Telegram
+        </a>
+      </div>
+    </div>
+
+    <!-- Кнопка Instagram -->
+    <div class="instagram-box">
+      <a href="https://instagram.com/YourCompany"
+         class="instagram-link"
+         target="_blank">
+        Instagram
+      </a>
+    </div>
+
+    <!-- Кнопка «Посмотреть последние продукты» -->
+    <a href="https://t.me/YourCompanyChannel"
+       class="latest-button"
+       target="_blank">
+      <span class="latest-button-text">
+        Посмотреть последние продукты
+      </span>
+    </a>
+  </div>
+
+  <script>
+    /**
+     * Парсим дату в формате DD.MM.YYYY => Date (JS)
+     * Пример: "14.03.2023"
+     */
+    function parseDateDDMMYYYY(dateStr) {
+      const [dd, mm, yyyy] = dateStr.split('.');
+      // Если что-то не так, возвращаем today
+      if (!dd || !mm || !yyyy) {
+        return new Date();
+      }
+      return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
+    }
+
+    /**
+    * Форматируем дату (Date -> "14 марта 2023")
+     * Для красивого отображения на русском.
+     */
+     function formatDateRussian(dateObj) {
+      const months = [
+        'января','февраля','марта','апреля','мая','июня',
+        'июля','августа','сентября','октября','ноября','декабря'
+      ];
+      const d = dateObj.getDate();
+      const m = dateObj.getMonth();
+      const y = dateObj.getFullYear();
+      return '${d} ${months[m]}, ${y}';
+    }
+
+    /**
+     * Форматируем короткий вид: DD.MM.YY (последние две цифры года)
+     */
+    function formatShort(dateObj) {
+      let d = dateObj.getDate();
+      let m = dateObj.getMonth() + 1;
+      let y = dateObj.getFullYear() % 100;
+      if(d < 10) d = '0' + d;
+      if(m < 10) m = '0' + m;
+      if(y < 10) y = '0' + y;
+      return '${d}.${m}.${y}';
+    }
+
+    // Получаем параметры из URL
+    const params = new URLSearchParams(window.location.search);
+    const modelParam = params.get('model') || '—';  // "NOM 1 Pro"
+    const dateParam = params.get('date');           // "DD.MM.YYYY"
+
+    // Привязываемся к элементам на странице
+    const modelValueEl = document.getElementById('modelValue');
+    const productionDateEl = document.getElementById('productionDateValue');
+    const startDateEl = document.getElementById('startDateShort');
+    const endDateEl = document.getElementById('endDateShort');
+    const daysRemainingEl = document.getElementById('daysRemaining');
+    const progressFillEl = document.getElementById('progressFill');
+
+    // Устанавливаем модель
+    modelValueEl.textContent = modelParam;
+
+    // Парсим дату производства
+    let productionDate;
+    if(dateParam) {
+      productionDate = parseDateDDMMYYYY(dateParam);
+    } else {
+      productionDate = new Date(); // по умолчанию, если не указано
+    }
+
+    // Выводим дату производства (полным русским форматом)
+    productionDateEl.textContent = formatDateRussian(productionDate);
+
+    // Дата окончания гарантии (+2 года)
+    const warrantyEnd = new Date(productionDate);
+    warrantyEnd.setFullYear(warrantyEnd.getFullYear() + 2);
+
+    // Короткие даты для прогресс-бара
+    startDateEl.textContent = formatShort(productionDate);
+    endDateEl.textContent = formatShort(warrantyEnd);
+
+    // Считаем кол-во дней гарантии (2 года)
+    const totalWarrantyMs = warrantyEnd.getTime() - productionDate.getTime();
+    const totalWarrantyDays = Math.ceil(totalWarrantyMs / (1000*60*60*24));
+
+    // Сколько прошло дней с даты покупки до сегодня
+    const now = new Date();
+    let elapsedMs = now.getTime() - productionDate.getTime();
+    let elapsedDays = Math.ceil(elapsedMs / (1000*60*60*24));
+    if (elapsedDays < 0) {
+      elapsedDays = 0; // если дата покупки в будущем
+    }
+
+    // Сколько осталось?
+    let daysRemaining = totalWarrantyDays - elapsedDays;
+    if (daysRemaining < 0) {
+      daysRemaining = 0; // гарантия закончилась
+    }
+
+    // Процент заливки (0..100%)
+    let percent = (elapsedDays / totalWarrantyDays) * 100;
+    if (percent > 100) {
+      percent = 100;
+    }
+
+    // Устанавливаем ширину прогресс-бара
+    const barWidthPx = 342; // ширина .progress-background по макету
+    const fillWidth = (barWidthPx * percent) / 100;
+    progressFillEl.style.width = fillWidth + 'px';
+
+    // Если гарантия истекла -> «Гарантия истекла»
+    // И заливаем бар на 100% (уже сделано выше, percent=100)
+    if (daysRemaining === 0 && now > warrantyEnd) {
+      daysRemainingEl.textContent = "Гарантия истекла";
+    } else {
+      daysRemainingEl.textContent = 'Осталось ${daysRemaining} дней гарантии';
+    }
+  </script>
+</body>
+</html>

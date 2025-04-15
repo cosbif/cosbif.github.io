@@ -42,78 +42,15 @@
     /* position: relative;  width: 375px;  height: 812px; */
     /* уже задано выше .screen */
 
-    /* Mask group / Rectangle 38 */
-    .logo-bg {
-      position: absolute;
-      width: 108px;
-      height: 108px;
-      left: calc(50% - 108px/2 + 0.5px);
-      top: 48px;
-      background: #D9D9D9;
-      border-radius: 50%; /* Не было в коде, добавляю для логотипа */
+    .logo-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
     }
-
-    /* Group 196 ... и Subtract-элементы - ваша фигура “логотипа” */
-    .subtract1 {
-      position: absolute;
-      width: 123.43px;
-      height: 123.43px;
-      left: 118.57px;
-      top: 48.01px;
-      background: #525252;
-    }
-    .subtract2 {
-      position: absolute;
-      width: 92.57px;
-      height: 92.57px;
-      left: 134px;
-      top: 156.01px;
-      background: #BBBBBB;
-      transform: rotate(-90deg);
-    }
-    .subtract3 {
-      position: absolute;
-      width: 92.57px;
-      height: 92.57px;
-      left: 226.57px;
-      top: 63.42px;
-      background: #BBBBBB;
-      transform: rotate(90deg);
-    }
-    .subtract4 {
-      position: absolute;
-      width: 66.86px;
-      height: 66.85px;
-      left: 146.86px;
-      top: 76.29px;
-      background: #525252;
-    }
-    .subtract5 {
-      position: absolute;
-      width: 36px;
-      height: 36px;
-      left: 198.28px;
-      top: 91.72px;
-      background: #BBBBBB;
-      transform: rotate(90deg);
-    }
-    .subtract6 {
-      position: absolute;
-      width: 36px;
-      height: 36px;
-      left: 162.28px;
-      top: 127.72px;
-      background: #BBBBBB;
-      transform: rotate(-90deg);
-    }
-    .ellipse52 {
-      position: absolute;
-      width: 92.57px;
-      height: 92.57px;
-      left: 162.28px;
-      top: 19.72px;
-      border-radius: 50%;
-      /* background не указан в коде Figma, если надо - добавьте */
+    
+    .logo-img {
+      width: 80px; /* подберите подходящий размер */
+      height: auto;
     }
 
     /* Заголовок: Осветители и оптика NOM */
@@ -389,14 +326,9 @@
 <body>
   <div class="screen">
     <!-- Пример: «логотип» из нескольких фигур -->
-    <div class="logo-bg"></div>
-    <div class="subtract1"></div>
-    <div class="subtract2"></div>
-    <div class="subtract3"></div>
-    <div class="subtract4"></div>
-    <div class="subtract5"></div>
-    <div class="subtract6"></div>
-    <div class="ellipse52"></div>
+    <div class="logo-wrapper">
+      <img src="logo.svg" alt="Логотип NOM" class="logo-img"/>
+    </div>
 
     <!-- Заголовок -->
     <div class="main-title">Осветители и оптика NOM</div>

@@ -505,7 +505,7 @@
       const d = dateObj.getDate();
       const m = dateObj.getMonth();
       const y = dateObj.getFullYear();
-      return '${d} ${months[m]}, ${y}';
+      return `${d} ${months[m]}, ${y}`;
     }
 
     /**
@@ -518,7 +518,7 @@
       if(d < 10) d = '0' + d;
       if(m < 10) m = '0' + m;
       if(y < 10) y = '0' + y;
-      return '${d}.${m}.${y}';
+      return `${d}.${m}.${y}`;
     }
 
     // Получаем параметры из URL
@@ -590,7 +590,7 @@
     if (daysRemaining === 0 && now > warrantyEnd) {
       daysRemainingEl.textContent = "Гарантия истекла";
     } else {
-      daysRemainingEl.textContent = 'Осталось ${daysRemaining} дней гарантии';
+      daysRemainingEl.textContent = `Осталось ${daysRemaining} дней гарантии`;
     }
   </script>
 </body>

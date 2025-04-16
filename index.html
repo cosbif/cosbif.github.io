@@ -220,7 +220,7 @@
       width: 374px;
 
       display: flex;
-
+      flex-direction: column;   /* вертикальная «колонка» */
       align-items: center;      /* элементы внутри по центру */
       gap: 16px;                /* расстояние между «строками» */
     }
@@ -228,6 +228,7 @@
     /* Каждая «строка» с иконками */
     .contacts-row {
       display: flex;
+      flex-direction: row;
       justify-content: center;  /* выравниваем иконки в строке по центру */
       gap: 16px;                /* промежуток между иконками */
     }

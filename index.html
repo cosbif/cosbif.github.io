@@ -5,273 +5,206 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Осветители и оптика NOM</title>
   <style>
-    /* Устанавливаем нулевые отступы и  базовые стили */
+    /* Сброс базовых стилей */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
+    /* Основной фон и шрифт */
     body {
       background: #f8f8f8;
       font-family: 'Inter', sans-serif;
+      /* Выровняем контент по центру, чтобы сайт не прижимался к левому краю */
       display: flex;
-      justify-content: center;  /* центрируем контейнер по горизонтали */
+      justify-content: center;
+      /* отступ сверху/снизу, если нужно */
       padding: 20px 0;
     }
 
-    /* 
-      Главный контейнер, которому даём фиксированную ширину 375px,
-      чтобы повторить макет под iPhone 13 mini.
-      Высоту (812px) можно оставить auto,
-      чтобы контент подстраивался, если что-то растянется.
-    */
+    /* Контейнер, ограничиваем ширину (до 375px) и делаем фоновый прямоугольник */
     .screen {
-      position: relative;
-      width: 375px;
-      min-height: 812px; /* можно задать или оставить auto */
       background: #FFFFFF;
-      overflow: hidden; /* если что-то вылезет за пределы */
+      /* вместо фиксированных 375px/812px используем max-width, 
+         чтобы на больших экранах контент не растягивался, 
+         но при этом всё оставалось аккуратно */
+      width: 100%;
+      max-width: 375px;
+
+      /* убираем position: relative; min-height: 812px; overflow: hidden */
+      /* позволяем контейнеру растягиваться по высоте под контент */
+      border-radius: 8px; /* чуть‑чуть скруглим углы, если хотите */
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
 
-    /********************************************************************
-      Ниже — CSS, скопированный из Figma (с комментариями).
-      Я сгруппировал, где это возможно, но многое остаётся “absolute”.
-     ********************************************************************/
-
-    /* iPhone 13 mini - 1 */
-    /* position: relative;  width: 375px;  height: 812px; */
-    /* уже задано выше .screen */
-
+    /* Лого (NOM) */
     .logo-wrapper {
       display: flex;
       justify-content: center;
-      margin-top: 30px;
+      margin-top: 20px;
     }
-    
     .logo-img {
-      width: 120px; /* подберите подходящий размер */
+      width: 120px;
       height: auto;
     }
 
-    /* Заголовок: Осветители и оптика NOM */
+    /* Заголовок */
     .main-title {
-      position: absolute;
-      width: 224px;
-      height: 70px;
-      left: calc(50% - 224px/2 + 0.5px);
-      top: 180px;
-      font-weight: 600;
-      font-size: 32px;
-      line-height: 110%;
       text-align: center;
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 1.2;
       color: #525252;
+      margin: 16px 20px; /* отступы сверху и по бокам */
     }
 
-    /* "Модель" */
-    .label-model {
-      position: absolute;
-      width: 61px;
-      height: 18px;
-      left: calc(50% - 61px/2);
-      top: 282px;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 110%;
-      letter-spacing: -0.01em;
-      color: #A0A0A0; /* grey */
+    /* Блок "Модель" */
+    .model-block {
+      text-align: center;
+      margin: 16px 0;
     }
-    /* "NOM 1 Pro" */
+    .label-model {
+      font-size: 16px;
+      color: #A0A0A0;
+      margin-bottom: 4px;
+    }
     #modelValue {
-      position: absolute;
-      width: 99px;
-      height: 22px;
-      left: calc(50% - 99px/2);
-      top: 308px;
       font-weight: 700;
       font-size: 20px;
-      line-height: 110%;
-      letter-spacing: -0.01em;
-      color: #525252; /* main */
-      text-align: center;
+      color: #525252;
     }
 
-    /* Дата покупки */
-    .label-date {
-      position: absolute;
-      width: 105px;
-      height: 18px;
-      left: calc(50% - 105px/2);
-      top: 354px;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 110%;
-      color: #A0A0A0; /* grey */
+    /* Блок "Дата покупки" */
+    .date-block {
       text-align: center;
+      margin: 16px 0;
     }
-    /* "14 марта, 2022" */
+    .label-date {
+      font-size: 16px;
+      color: #A0A0A0;
+      margin-bottom: 4px;
+    }
     #productionDateValue {
-      position: absolute;
-      width: 147px;
-      height: 22px;
-      left: calc(50% - 147px/2);
-      top: 380px;
       font-weight: 600;
       font-size: 20px;
-      line-height: 110%;
-      letter-spacing: -0.01em;
-      color: #525252; /* main */
-      text-align: center;
-    }
-
-    /* Даты слева/справа над прогресс-баром */
-    #startDateShort {
-      position: absolute;
-      width: 56px;
-      height: 15px;
-      left: 17px; /* или right: 303px, но мы упростим */
-      top: 426px;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 110%;
-      letter-spacing: -0.01em;
       color: #525252;
     }
+
+    /* Прогресс-бар + даты */
+    .progress-section {
+      margin: 24px 16px; /* отступы вокруг */
+    }
+
+    .progress-dates {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    #startDateShort,
     #endDateShort {
-      position: absolute;
-      width: 56px;
-      height: 15px;
-      right: 16px; /* */
-      top: 426px;
-      font-weight: 400;
       font-size: 14px;
-      line-height: 110%;
-      letter-spacing: -0.01em;
       color: #525252;
-      text-align: right;
     }
 
-    /* Прогресс-бар (Group 199 / Background) */
     .progress-background {
-      position: absolute;
-      width: 342px;
+      width: 100%;
       height: 12px;
-      left: calc(50% - 342px/2 + 0.5px);
-      top: 449px;
       background: #E1E4EA;
       border-radius: 5px;
+      position: relative; /* чтобы fill позиционировать внутри */
     }
     .progress-fill {
-      /* Заливка, чтобы менять её ширину через JS */
       position: absolute;
+      left: 0;
+      top: 0;
       height: 12px;
-      left: calc(50% - 342px/2 + 0.5px); /* те же координаты, что у фона */
-      top: 449px;
       background: #525252;
       border-radius: 5px;
-      width: 0; /* по умолчанию 0, потом заполним скриптом */
+      width: 0; /* JS задаст ширину */
       transition: width 0.3s;
     }
 
-    /* Осталось 100 дней гарантии */
+    /* Осталось XX дней гарантии */
     #daysRemaining {
-      position: absolute;
-      width: 194px;
-      height: 15px;
-      left: calc(50% - 194px/2 + 0.5px);
-      top: 469px;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 110%;
-      letter-spacing: -0.01em;
-      color: #A0A0A0;
       text-align: center;
+      margin-top: 8px;
+      font-size: 14px;
+      color: #A0A0A0;
     }
 
-    /* Кнопка «Посмотреть последние продукты» (Link) */
-    .latest-button {
-      position: absolute;
-      width: 343px;
-      height: 50px;
-      left: calc(50% - 343px/2);
-      bottom: 48px;
-      background: #525252;
-      border-radius: 30px;
+    /* Контейнер для всех иконок. */
+    .contacts-container {
+      margin: 24px 16px;  /* отступы снаружи */
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center; /* строки будут по центру */
+    }
 
+    /* Каждая «строка» (пример: 2 иконки, 2 иконки, 2 иконки) */
+    .contact-row {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none; /* чтобы не было подчеркивания */
-    }
-    .latest-button-text {
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 110%;
-      letter-spacing: -0.01em;
-      color: #FFFFFF;
-    }
-
-    /* Контейнер для всех иконок. Размещаем его под прогресс-баром и даём внешний отступ. */
-    .contacts-container {
-      position: absolute;
-      top: 500px;
-      left: 0px;
-      width: 375px;
-
-      display: flex;
-      flex-direction: column;   /* вертикальная «колонка» */
-      align-items: center;      /* элементы внутри по центру */
-      gap: 16px;                /* расстояние между «строками» */
-    }
-
-    /* Каждая «строка» с иконками */
-    .contact-row {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;  /* выравниваем иконки в строке по центру */
-      gap: 16px;                /* промежуток между иконками */
+      gap: 16px;
     }
 
     .contact-icon {
       width: 50px;
       height: 50px;
-      border-radius: 50%;       /* делаем круг */
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-decoration: none;    /* убираем подчеркивание */
-      color: #fff;              /* цвет иконки (т.к. fill="currentColor") */
+      text-decoration: none;
+      color: #fff; /* для svg fill="currentColor" */
     }
 
-    /* Разные цвета фона */
-    .phone-icon {
-      background-color: #ffffff; /* зелёный для телефона */
-    }
-    .mail-icon {
-      background-color: #ffffff; /* синий для почты */
-    }
-    .whatsapp-icon {
-      background-color: #ffffff; /* фирменный зелёный WhatsApp */
-    }
-    .telegram-icon {
-      background-color: #ffffff; /* голубой для Telegram */
-    }
-    .instagram-icon {
-      /* Градиент для Instagram */
-      background-color: #ffffff;
-    }
-    .website-icon {
-      /* Градиент для Instagram */
-      background-color: #ffffff;
-    }
-    
-    /* Указываем размер самих svg, 
-       если нужен поменьше/побольше значок */
+    .phone-icon { background-color: #ffffff; }
+    .mail-icon { background-color: #ffffff; }
+    .whatsapp-icon { background-color: #ffffff; }
+    .telegram-icon { background-color: #ffffff; }
+    .instagram-icon { background-color: #ffffff; }
+    .website-icon { background-color: #ffffff; }
     .contact-icon svg {
-      width: 48px;
-      height: 48px;
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Кнопка «Посмотреть последние продукты» */
+    .latest-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      text-decoration: none;
+      background: #525252;
+      color: #ffffff;
+      font-size: 16px;
+
+      margin: 24px auto;   /* выравниваем по центру, добавляем отступ */
+      width: calc(100% - 32px); /* чуть меньше 100%, с боковыми полями */
+      max-width: 343px;   /* чтобы не выходить за рамки 375 */
+      height: 50px;
+      border-radius: 30px;
+    }
+    .latest-button-text {
+      font-weight: 400;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    /* Небольшая адаптивность: при совсем узких экранах 
+       можно подправить отступы, шрифт и т. п. */
+    @media (max-width: 320px) {
+      .logo-img {
+        width: 100px;
+      }
+      .main-title {
+        font-size: 24px;
+      }
     }
 
   </style>
@@ -296,26 +229,33 @@
     </div>
 
     <!-- Заголовок -->
-    <div class="main-title">Осветители и оптика NOM</div>
+    <h1 class="main-title">Осветители и оптика NOM</h1>
 
-    <!-- Модель -->
-    <div class="label-model">Модель</div>
-    <div id="modelValue">NOM 1 Pro</div>
+    <!-- Блок "Модель" -->
+    <div class="model-block">
+      <div class="label-model">Модель</div>
+      <div id="modelValue">NOM 1 Pro</div>
+    </div>
 
-    <!-- Дата покупки -->
-    <div class="label-date">Дата покупки</div>
-    <div id="productionDateValue">14 марта, 2022</div>
 
-    <!-- Даты над прогресс-баром -->
-    <div id="startDateShort">14.03.25</div>
-    <div id="endDateShort">14.03.27</div>
+    <!-- Блок "Дата покупки" -->
+    <div class="date-block">
+      <div class="label-date">Дата покупки</div>
+      <div id="productionDateValue">14 марта, 2022</div>
+    </div>
 
-    <!-- Прогресс-бар -->
-    <div class="progress-background"></div>
-    <div class="progress-fill" id="progressFill"></div>
+    <!-- Прогресс-бар + надписи -->
+    <div class="progress-section">
+      <div class="progress-dates">
+        <span id="startDateShort">14.03.25</span>
+        <span id="endDateShort">14.03.27</span>
+      </div>
+      <div class="progress-background">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div id="daysRemaining">Осталось 100 дней гарантии</div>
+    </div>
 
-    <!-- Осталось XX дней гарантии -->
-    <div id="daysRemaining">Осталось 100 дней гарантии</div>
 
     <!-- Контейнер для всех иконок -->
     <div class="contacts-container">

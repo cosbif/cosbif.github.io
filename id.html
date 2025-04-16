@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Осветители и оптика NOM</title>
+  <style>
+    /* Сброс базовых стилей */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Основной фон и шрифт */
+    body {
+      background: #f8f8f8;
+      font-family: 'Inter', sans-serif;
+      /* Выровняем контент по центру, чтобы сайт не прижимался к левому краю */
+      display: flex;
+      justify-content: center;
+      /* отступ сверху/снизу, если нужно */
+      padding: 20px 0;
+    }
+
+    /* Контейнер, ограничиваем ширину (до 375px) и делаем фоновый прямоугольник */
+    .screen {
+      background: #FFFFFF;
+      /* вместо фиксированных 375px/812px используем max-width, 
+         чтобы на больших экранах контент не растягивался, 
+         но при этом всё оставалось аккуратно */
+      width: 100%;
+      max-width: 375px;
+
+      /* убираем position: relative; min-height: 812px; overflow: hidden */
+      /* позволяем контейнеру растягиваться по высоте под контент */
+      border-radius: 8px; /* чуть‑чуть скруглим углы, если хотите */
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    /* Лого (NOM) */
+    .logo-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .logo-img {
+      width: 120px;
+      height: auto;
+    }
+
+    /* Заголовок */
+    .main-title {
+      text-align: center;
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 1.2;
+      color: #525252;
+      margin: 16px 20px; /* отступы сверху и по бокам */
+    }
+
+    /* Блок "Модель" */
+    .model-block {
+      text-align: center;
+      margin: 16px 0;
+    }
+    .label-model {
+      font-size: 16px;
+      color: #A0A0A0;
+      margin-bottom: 4px;
+    }
+    #modelValue {
+      font-weight: 700;
+      font-size: 20px;
+      color: #525252;
+    }
+
+    /* Блок "Дата покупки" */
+    .date-block {
+      text-align: center;
+      margin: 16px 0;
+    }
+    .label-date {
+      font-size: 16px;
+      color: #A0A0A0;
+      margin-bottom: 4px;
+    }
+    #productionDateValue {
+      font-weight: 600;
+      font-size: 20px;
+      color: #525252;
+    }
+
+    /* Прогресс-бар + даты */
+    .progress-section {
+      margin: 24px 16px; /* отступы вокруг */
+    }
+
+    .progress-dates {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    #startDateShort,
+    #endDateShort {
+      font-size: 14px;
+      color: #525252;
+    }
+
+    .progress-background {
+      width: 100%;
+      height: 12px;
+      background: #E1E4EA;
+      border-radius: 5px;
+      position: relative; /* чтобы fill позиционировать внутри */
+    }
+    .progress-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 12px;
+      background: #525252;
+      border-radius: 5px;
+      width: 0; /* JS задаст ширину */
+      transition: width 0.3s;
+    }
+
+    /* Осталось XX дней гарантии */
+    #daysRemaining {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 14px;
+      color: #A0A0A0;
+    }
+
+    /* Контейнер для всех иконок. */
+    .contacts-container {
+      margin: 24px 16px;  /* отступы снаружи */
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center; /* строки будут по центру */
+    }
+
+    /* Каждая «строка» (пример: 2 иконки, 2 иконки, 2 иконки) */
+    .contact-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #fff; /* для svg fill="currentColor" */
+    }
+
+    .phone-icon { background-color: #4CAF50; }
+    .mail-icon { background-color: #2196F3; }
+    .whatsapp-icon { background-color: #20B038; }
+    .telegram-icon { background-color: #2AABEE; }
+    .instagram-icon {
+      background: radial-gradient(circle at 30% 107%,
+      #fdf497 0%, 
+      #fdf497 5%, 
+      #fd5949 45%, 
+      #d6249f 60%, 
+      #285AEB 90%);
+    }
+    .website-icon {
+      background-color: #777; /* или подберите другой цвет */
+    }
+    .contact-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Кнопка «Посмотреть последние продукты» */
+    .latest-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      text-decoration: none;
+      background: #525252;
+      color: #ffffff;
+      font-size: 16px;
+
+      margin: 24px auto;   /* выравниваем по центру, добавляем отступ */
+      width: calc(100% - 32px); /* чуть меньше 100%, с боковыми полями */
+      max-width: 343px;   /* чтобы не выходить за рамки 375 */
+      height: 50px;
+      border-radius: 30px;
+    }
+    .latest-button-text {
+      font-weight: 400;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    /* Небольшая адаптивность: при совсем узких экранах 
+       можно подправить отступы, шрифт и т. п. */
+    @media (max-width: 320px) {
+      .logo-img {
+        width: 100px;
+      }
+      .main-title {
+        font-size: 24px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="screen">
+
+    <!-- Логотип -->
+    <div class="logo-wrapper">
+      <img src="logo.svg" alt="Логотип NOM" class="logo-img"/>
+    </div>
+
+    <!-- Заголовок -->
+    <h1 class="main-title">Осветители и оптика NOM</h1>
+
+    <!-- Блок "Модель" -->
+    <div class="model-block">
+      <div class="label-model">Модель</div>
+      <div id="modelValue">NOM 1 Pro</div>
+    </div>
+
+    <!-- Блок "Дата покупки" -->
+    <div class="date-block">
+      <div class="label-date">Дата покупки</div>
+      <div id="productionDateValue">14 марта, 2022</div>
+    </div>
+
+    <!-- Прогресс-бар + надписи -->
+    <div class="progress-section">
+      <div class="progress-dates">
+        <span id="startDateShort">14.03.25</span>
+        <span id="endDateShort">14.03.27</span>
+      </div>
+      <div class="progress-background">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div id="daysRemaining">Осталось 100 дней гарантии</div>
+    </div>
+
+    <!-- Контейнер для иконок (2+2+2 например) -->
+    <div class="contacts-container">
+      <div class="contact-row">
+        <!-- Кнопка: Телефон -->
+        <a href="tel:+79994777801" class="contact-icon phone-icon" target="_blank">
+          <!-- Ваш SVG телефона -->
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="..."/>
+          </svg>
+        </a>
+        <!-- Кнопка: Почта -->
+        <a href="mailto:nomlamp@mail.ru" class="contact-icon mail-icon" target="_blank">
+          <!-- Ваш SVG почты -->
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="..."/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="contact-row">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/79994777801" class="contact-icon whatsapp-icon" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="..."/>
+          </svg>
+        </a>
+        <!-- Telegram -->
+        <a href="https://t.me/Nomlamp" class="contact-icon telegram-icon" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="..."/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="contact-row">
+        <!-- Instagram -->
+        <a href="https://instagram.com/nomlamp" class="contact-icon instagram-icon" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="..."/>
+          </svg>
+        </a>
+        <!-- Вебсайт -->
+        <a href="https://nomlamp.ru" class="contact-icon website-icon" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="..."/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Кнопка «Посмотреть последние продукты» -->
+    <a href="https://t.me/nomupdate" class="latest-button" target="_blank">
+      <span class="latest-button-text">
+        Крайние обновления продукта
+      </span>
+    </a>
+
+  </div>
+
+  <!-- Ваш JavaScript (парсинг дат, логика гарантии и т.д.) -->
+  <script>
+    // Пример (упрощённо):
+    // 1) Парсим ?model=..., ?date=...
+    // 2) Считаем гарантию
+    // 3) Заполняем #modelValue, #productionDateValue, #startDateShort, #endDateShort, #daysRemaining
+    // 4) Меняем ширину #progressFill
+  </script>
+</body>
+</html>

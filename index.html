@@ -413,7 +413,7 @@
     </div>
 
     <!-- Кнопка «Посмотреть последние продукты» -->
-    <a href="https://t.me/Nomlamp"
+    <a href="https://t.me/nomupdate"
        class="latest-button"
        target="_blank">
       <span class="latest-button-text">
@@ -529,12 +529,35 @@
     const fillWidth = (barWidthPx * percent) / 100;
     progressFillEl.style.width = fillWidth + 'px';
 
+    function declineDayWord(n) {
+      const mod10 = n % 10;
+      const mod100 = n % 100;
+      if (mod10 === 1 && mod100 !== 11) {
+        return "день";
+      } else if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) {
+        return "дня";
+      } else {
+        return "дней";
+      }
+    }
+
+    function getOstalsyaOstalos(n) {
+      // Если слово — "день", значит число оканчивается на 1 (кроме 11).
+      if (declineDayWord(n) === "день") {
+        return "Остался";
+      } else {
+        return "Осталось";
+      }
+    } 
+
     // Если гарантия истекла -> «Гарантия истекла»
     // И заливаем бар на 100% (уже сделано выше, percent=100)
     if (daysRemaining === 0 && now > warrantyEnd) {
       daysRemainingEl.textContent = "Гарантия истекла";
     } else {
-      daysRemainingEl.textContent = `Осталось ${daysRemaining} дней гарантии`;
+      const dayWord = declineDayWord(daysRemaining);
+      const verb = getOstalsyaOstalos(daysRemaining)
+      daysRemainingEl.textContent = `${verb} ${daysRemaining} ${dayWord} гарантии`;
     }
   </script>
 </body>

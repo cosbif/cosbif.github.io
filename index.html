@@ -445,7 +445,7 @@
     * Форматируем дату (Date -> "14 марта 2023")
      * Для красивого отображения на русском.
      */
-     function formatDateRussian(dateObj) {
+    function formatDateRussian(dateObj) {
       const months = [
         'января','февраля','марта','апреля','мая','июня',
         'июля','августа','сентября','октября','ноября','декабря'
@@ -467,6 +467,33 @@
       if(m < 10) m = '0' + m;
       if(y < 10) y = '0' + y;
       return `${d}.${m}.${y}`;
+    }
+
+    /* ---------- карта допустимых моделей ---------- */
+    const modelMap = {
+      'NOM1'    : 'NOM 1',
+      'NOM2'    : 'NOM 2',
+      'NOM3'    : 'NOM 3',
+      'NOM4'    : 'NOM 4',
+      'NOM1PRO' : 'NOM 1 Pro',
+      'NOM2PRO' : 'NOM 2 Pro',
+      'NOM3PRO' : 'NOM 3 Pro',
+      'NOM4PRO' : 'NOM 4 Pro'
+    };
+
+    /**  
+     * Приводим URL‑параметр к «красивому» виду  
+     * @param {string|null} raw – то, что пришло из URL  
+     * @return {string} – отформатированное название модели  
+     */
+    function prettifyModel(raw) {
+      if (!raw) return '—';
+    
+      /* 1) убираем всё, кроме латиницы и цифр, 2) делаем UPPERCASE */
+      const key = raw.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+    
+      /* если есть в карте – берём красивое название, иначе оставляем исходник */
+      return modelMap[key] ?? raw;
     }
 
     // Получаем параметры из URL

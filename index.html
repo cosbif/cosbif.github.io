@@ -488,18 +488,19 @@
      */
     function prettifyModel(raw) {
       if (!raw) return '—';
-    
+
       /* 1) убираем всё, кроме латиницы и цифр, 2) делаем UPPERCASE */
-      const key = raw.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
-    
+      const key = raw.replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+
       /* если есть в карте – берём красивое название, иначе оставляем исходник */
       return modelMap[key] ?? raw;
     }
 
     // Получаем параметры из URL
     const params = new URLSearchParams(window.location.search);
-    const modelParam = params.get('model') || '—';  // "NOM 1 Pro"
+    const modelRaw= params.get('model') || '—';  // "NOM 1 Pro"
     const dateParam = params.get('date');           // "DD.MM.YYYY"
+    const modelPretty = prettifyModel(modelRaw);
 
     // Привязываемся к элементам на странице
     const modelValueEl = document.getElementById('modelValue');
@@ -510,7 +511,7 @@
     const progressFillEl = document.getElementById('progressFill');
 
     // Устанавливаем модель
-    modelValueEl.textContent = modelParam;
+    modelValueEl.textContent = modelPretty;
 
     // Парсим дату производства
     let productionDate;

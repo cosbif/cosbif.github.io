@@ -96,6 +96,8 @@
   
     /* Прогресс-бар + даты */
     .progress-section {
+      width: calc(100% - 32px);
+      max-width: 360px;
       margin: 24px 16px; /* отступы вокруг */
     }
   
@@ -233,7 +235,7 @@
       #modelValue,
       #productionDateValue { font-size: 24px; }
 
-      .progress-section { margin: 32px 40px; }
+      .progress-section { margin: 32px auto; max-width: 720px; width: 100%; }
       .progress-background { height: 12px; }
       #startDateShort,
       #endDateShort,

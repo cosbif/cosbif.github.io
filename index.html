@@ -529,9 +529,7 @@
     }
 
     // Устанавливаем ширину прогресс-бара
-    const barWidthPx = 342; // ширина .progress-background по макету
-    const fillWidth = (barWidthPx * percent) / 100;
-    progressFillEl.style.width = fillWidth + 'px';
+    progressFillEl.style.width = percent + '%';
 
     function declineDayWord(n) {
       const mod10 = n % 10;
